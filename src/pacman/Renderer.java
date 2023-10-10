@@ -2,7 +2,7 @@ package pacman;
 
 public class Renderer {
 
-    public void render(Map map, Ghost ghost, Pacman pacman) {
+    public void render(Map map, IGhost ghost, IPacman pacman) {
         int mapWidth = map.getMapWidth();
         int mapHeight = map.getMapHeight();
 
@@ -15,7 +15,7 @@ public class Renderer {
         }
     }
 
-    private char getCellContents(Map map, Ghost ghost, Pacman pacman, int row, int col) {
+    private char getCellContents(Map map, IGhost ghost, IPacman pacman, int row, int col) {
         if (map.isWall(row, col)) {
             return '#';
         } else if (col == pacman.getX() && row == pacman.getY()) {

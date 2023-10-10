@@ -2,10 +2,10 @@ package pacman;
 
 public class GameRules {
     Map map;
-    Pacman pacman;
-    Ghost ghost;
+    IPacman pacman;
+    IGhost ghost;
 
-    public GameRules(Map map, Pacman pacman, Ghost ghost) {
+    public GameRules(Map map, IPacman pacman, IGhost ghost) {
         this.map = map;
         this.pacman = pacman;
         this.ghost = ghost;

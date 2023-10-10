@@ -1,50 +1,77 @@
+import Mocks.MockPacman;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pacman.Pacman;
+import pacman.IPacman;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PacmanTests {
+    private IPacman pacman;
+
+    @BeforeEach
+    public void setUp() {
+        pacman = new MockPacman(5,5);
+    }
 
     @Test
     public void testInitialPosition() {
-        Pacman pacman = new Pacman(5, 5);
         assertEquals(5, pacman.getX());
         assertEquals(5, pacman.getY());
     }
 
     @Test
     public void testMoveRight() {
-        Pacman pacman = new Pacman(5, 5);
+        // Arrange
+        int initialX = pacman.getX();
+        int initialY = pacman.getY();
 
+        // Act
         pacman.move(1, 0);
-        assertEquals(6, pacman.getX());
-        assertEquals(5, pacman.getY());
+
+        // Assert
+        assertEquals(initialX + 1, pacman.getX());
+        assertEquals(initialY, pacman.getY());
     }
 
     @Test
     public void testMoveUp() {
-        Pacman pacman = new Pacman(5, 5);
+        // Arrange
+        int initialX = pacman.getX();
+        int initialY = pacman.getY();
 
+        // Act
         pacman.move(0, -1);
-        assertEquals(5, pacman.getX());
-        assertEquals(4, pacman.getY());
+
+        // Assert
+        assertEquals(initialX, pacman.getX());
+        assertEquals(initialY - 1, pacman.getY());
     }
 
     @Test
     public void testMoveLeft() {
-        Pacman pacman = new Pacman(5, 5);
+        // Arrange
+        int initialX = pacman.getX();
+        int initialY = pacman.getY();
 
+        // Act
         pacman.move(-1, 0);
-        assertEquals(4, pacman.getX());
-        assertEquals(5, pacman.getY());
+
+        // Assert
+        assertEquals(initialX - 1, pacman.getX());
+        assertEquals(initialY, pacman.getY());
     }
 
     @Test
     public void testMoveDown() {
-        Pacman pacman = new Pacman(5, 5);
+        // Arrange
+        int initialX = pacman.getX();
+        int initialY = pacman.getY();
 
+        // Act
         pacman.move(0, 1);
-        assertEquals(5, pacman.getX());
-        assertEquals(6, pacman.getY());
+
+        // Assert
+        assertEquals(initialX, pacman.getX());
+        assertEquals(initialY + 1, pacman.getY());
     }
 }

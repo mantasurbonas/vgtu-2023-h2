@@ -1,12 +1,13 @@
 package windowsPacman;
 
-import pacman.Ghost;
+import pacman.IGhost;
 import pacman.Map;
-import pacman.Pacman;
+import pacman.IPacman;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -14,23 +15,26 @@ public class WindowsRenderer {
     private static final String IMAGE_PATH = "src/windowsPacman/resources/";
 
     private Map map;
-    private Ghost ghost;
-    private Pacman pacman;
+    private IGhost ghost;
+    private IPacman pacman;
 
 
     private BufferedImage pacmanImage;
     private BufferedImage ghostImage;
     private BufferedImage wallImage;
 
-    public WindowsRenderer(Map map, Ghost ghost, Pacman pacman) throws Exception {
+    public WindowsRenderer(Map map, IGhost ghost, IPacman pacman) {
         this.map = map;
         this.ghost = ghost;
         this.pacman = pacman;
 
-
-        pacmanImage = ImageIO.read(new FileInputStream(IMAGE_PATH + "pacman-open.png"));
-        ghostImage = ImageIO.read(new FileInputStream(IMAGE_PATH + "ghost.png"));
-        wallImage = ImageIO.read(new FileInputStream(IMAGE_PATH + "wall.png"));
+        try {
+            pacmanImage = ImageIO.read(new FileInputStream(IMAGE_PATH + "pacman-open.png"));
+            ghostImage = ImageIO.read(new FileInputStream(IMAGE_PATH + "ghost.png"));
+            wallImage = ImageIO.read(new FileInputStream(IMAGE_PATH + "wall.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void render(Graphics g) {

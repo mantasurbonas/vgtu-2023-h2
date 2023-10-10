@@ -4,15 +4,15 @@ import java.io.IOException;
 
 public class Game {
     private Map map;
-    private Ghost ghost;
-    private Pacman pacman;
+    private IGhost ghost;
+    private IPacman pacman;
     private Renderer renderer;
     private GameRules gameRules;
 
     public Game() {
         map = new Map();
-        ghost = new Ghost(2,3);
-        pacman = new Pacman(5,5);
+        ghost = new Ghost(2, 3, 1, 0);
+        pacman = new Pacman(5, 5);
         renderer = new Renderer();
         gameRules = new GameRules(map, pacman, ghost);
     }

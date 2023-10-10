@@ -1,9 +1,6 @@
 package windowsPacman;
 
-import pacman.GameRules;
-import pacman.Ghost;
-import pacman.Map;
-import pacman.Pacman;
+import pacman.*;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,22 +15,23 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class WindowsMain extends JFrame{
-
-    private Map map = new Map();
-    private Ghost ghost = new Ghost(2,3);
-    private Pacman pacman = new Pacman(5,5);
-
-    private GameRules gameRules = new GameRules(map, pacman, ghost);
-
+    private Map map;
+    private IGhost ghost;
+    private IPacman pacman;
+    private GameRules gameRules;
     private WindowsRenderer windowsRenderer;
 
-    public WindowsMain() throws Exception {
+    public WindowsMain(Map map, IGhost ghost, IPacman pacman) {
+        this.map = map;
+        this.ghost = ghost;
+        this.pacman = pacman;
+        gameRules = new GameRules(map, pacman, ghost);
+        windowsRenderer = new WindowsRenderer(map, ghost, pacman);
+
         super.setPreferredSize(new Dimension(1500, 900));
         super.pack();
         super.setVisible(true);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        windowsRenderer =  new WindowsRenderer(map, ghost, pacman);
 
         super.addKeyListener(new KeyListener() {
 
@@ -48,9 +46,7 @@ public class WindowsMain extends JFrame{
             @Override
             public void keyPressed(KeyEvent e) {
                 char userInput = e.getKeyChar();
-
                 gameRules.processUserInput(userInput);
-
                 repaint();
             }
         });
@@ -60,7 +56,6 @@ public class WindowsMain extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameRules.progressFrame();
-
                 repaint();
             }
         }).start();
@@ -69,21 +64,15 @@ public class WindowsMain extends JFrame{
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
         windowsRenderer.render(g);
     }
 
-    public static void main(String[] args) throws InvocationTargetException, InterruptedException {
-        SwingUtilities.invokeAndWait(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    new WindowsMain();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+    public static void main(String[] args) throws InvocationTargetException, InterruptedException{
+        SwingUtilities.invokeAndWait(() -> {
+            Map map = new Map();
+            IGhost ghost = new Ghost(2, 3, 1, 0);
+            IPacman pacman = new Pacman(5, 5);
+            new WindowsMain(map, ghost, pacman);
         });
     }
 }

@@ -1,34 +1,20 @@
-package pacman;
+package Mocks;
 
-public class Ghost implements IGhost{
+import pacman.IGhost;
+import pacman.IPacman;
+
+public class MockGhost implements IGhost {
+
     private int x;
     private int y;
     private int dx;
     private int dy;
 
-    public Ghost(int initialX, int initialY, int initialDx, int initialDy) {
+    public MockGhost(int initialX, int initialY, int initialDx, int initialDy) {
         this.x = initialX;
         this.y = initialY;
         this.dx = initialDx;
         this.dy = initialDy;
-    }
-
-    @Override
-    public void changeDirection() {
-        int temp = dx;
-        dx = -dy;
-        dy = temp;
-    }
-
-    @Override
-    public void move() {
-        x += dx;
-        y += dy;
-    }
-
-    @Override
-    public boolean overlaps(IPacman pacman) {
-        return x == pacman.getX() && y == pacman.getY();
     }
 
     @Override
@@ -59,5 +45,23 @@ public class Ghost implements IGhost{
     @Override
     public int getDeltaY() {
         return dy;
+    }
+
+    @Override
+    public void move() {
+        x += dx;
+        y += dy;
+    }
+
+    @Override
+    public void changeDirection() {
+        int tmp = dx;
+        dx = -dy;
+        dy = tmp;
+    }
+
+    @Override
+    public boolean overlaps(IPacman pacman) {
+        return x == pacman.getX() && y == pacman.getY();
     }
 }
